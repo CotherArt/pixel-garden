@@ -5,10 +5,11 @@ import pygame
 import sys
 from time import sleep
 from random import randint
+from branch import Branch
 
 pygame.init()
 
-# Colors
+# Colors ---------------
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
 GRAY = (47,79,79)
@@ -18,8 +19,9 @@ BLUE = (30,144,255)
 LIGTH_BLUE =(186, 212, 239)
 
 color_background = LIGTH_BLUE
-color_seed = BLACK
+color_branch = BLACK
 color_ground = GRAY
+# /Colors---------------
 
 # Constants
 WIDTH, HEIGHT = 480, 480
@@ -30,36 +32,19 @@ screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption('pixel garden by: CotherArt')
 clock = pygame.time.Clock()
 
+# Branch and Ground propertyes
 pixel_tam = 1
 ground_thick = 20
 seed_posx = ORIGEN_X
 seed_posy = HEIGHT - (ground_thick + pixel_tam)
 
-branch = []
+# Objeto branch
+br = Branch(seed_posx, seed_posy, color_branch)
 
-def add_branch():
-    global branch
-    branch.append(pygame.Rect(seed_posx, seed_posy, pixel_tam, pixel_tam))
-
-def draw_branch():
-    for i in branch:
-        pygame.draw.rect(screen, color_seed, i)    
-
-def draw_seed():
-    pygame.draw.rect(screen, color_seed, pygame.Rect(seed_posx, seed_posy, pixel_tam, pixel_tam))
-
+# Dibuja el suelo
 def draw_ground():
     pygame.draw.rect(screen, color_ground, pygame.Rect(0, HEIGHT-ground_thick, WIDTH, ground_thick))
 
-def grow():
-    global seed_posx
-    global seed_posy
-
-    seed_posy -= pixel_tam
-    if randint(0,1) == 0:
-        seed_posx += pixel_tam
-    else:
-        seed_posx -= pixel_tam
 
 # Main loop
 while True:
@@ -69,16 +54,12 @@ while True:
             pygame.quit()
             sys.exit()
 
+
     # Draw on screen
     screen.fill(color_background)
-
-    # draw_seed()
     draw_ground()
-    add_branch()
-    draw_branch()
-    grow()
+    br.draw_branch(screen)
     
-    pygame.display.update()
-    # sleep(0.1)
 
+    pygame.display.update()
     clock.tick(30)
