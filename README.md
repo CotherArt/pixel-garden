@@ -1,6 +1,6 @@
 # pixel-garden
 
-A plant growing simlation
+A plant growing simulation 
 
 ## Setup
 

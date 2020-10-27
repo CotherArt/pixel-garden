@@ -32,7 +32,7 @@ pygame.display.set_caption('pixel garden by: CotherArt')
 clock = pygame.time.Clock()
 
 # Background image
-bg = pygame.image.load("back.png")
+bg = pygame.image.load("images/back.png")
 
 # Branch and Ground propertyes
 pixel_tam = 1
