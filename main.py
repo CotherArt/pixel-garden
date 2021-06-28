@@ -41,28 +41,46 @@ seed_posx = ORIGEN_X
 seed_posy = HEIGHT - (ground_thick)
 
 # Objeto branch
-br = Branch(seed_posx, seed_posy, color_branch)
+tree = []
+main_br = Branch(seed_posx, seed_posy, color_branch)
+tree.append(main_br)
 
 # Dibuja el suelo
 def draw_ground():
 	pygame.draw.rect(screen, color_ground, pygame.Rect(0, HEIGHT-ground_thick, WIDTH, ground_thick))
 
 
-# Main loop
-while True:
-	events = pygame.event.get()
-	for event in events:
-		if event.type == pygame.QUIT:
-			pygame.quit()
-			sys.exit()
+def main():
+	# Main loop
+	while True:
+		events = pygame.event.get()
+		for event in events:
+			if event.type == pygame.QUIT:
+				pygame.quit()
+				sys.exit()
 
 
-	# Draw on screen
-	screen.blit(bg,(0,0))	
-	draw_ground()
-	br.draw_branch(screen)
-	
+		# Draw on screen
+		screen.blit(bg,(0,0))	
+		draw_ground()
+		if main_br.get_len() in [5, 15, 25, 35, 45]:
+			length = main_br.get_len()
+			branch = Branch(main_br.get_rect(length-1).x, main_br.get_rect(length-1).y, color=GREEN, tam=8)
+			branch.set_direction(Branch.RIGHT)
+			tree.append(branch)
 
-	pygame.display.update()
-	sleep(0.1)
-	clock.tick(30)
+		if main_br.get_len() in [10, 20, 30, 40, 50]:
+			length = main_br.get_len()
+			branch = Branch(main_br.get_rect(length-1).x, main_br.get_rect(length-1).y, color=GREEN, tam=8)
+			branch.set_direction(Branch.LEFT)
+			tree.append(branch)
+
+		for br in tree:
+			br.draw_branch(screen)
+
+		pygame.display.update()
+		sleep(0.1)
+		clock.tick(30)
+
+if __name__ == '__main__':
+	main()
