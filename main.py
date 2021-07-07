@@ -51,6 +51,7 @@ def draw_ground():
 
 
 def main():
+	
 	# Main loop
 	while True:
 		events = pygame.event.get()
@@ -63,17 +64,33 @@ def main():
 		# Draw on screen
 		screen.blit(bg,(0,0))	
 		draw_ground()
-		if main_br.get_len() in [5, 15, 25, 35, 45]:
+
+		tam_br = 8
+		if main_br.get_len() > 5:
 			length = main_br.get_len()
+			# if length
 			branch = Branch(main_br.get_rect(length-1).x, main_br.get_rect(length-1).y, color=GREEN, tam=8)
 			branch.set_direction(Branch.RIGHT)
-			tree.append(branch)
+			tree.append(branch)	
 
-		if main_br.get_len() in [10, 20, 30, 40, 50]:
+		if main_br.get_len() > 5:
 			length = main_br.get_len()
 			branch = Branch(main_br.get_rect(length-1).x, main_br.get_rect(length-1).y, color=GREEN, tam=8)
 			branch.set_direction(Branch.LEFT)
-			tree.append(branch)
+			tree.append(branch)	
+
+		# # Drawing branches and main 
+		# if main_br.get_len() in [5, 15, 25, 35, 45]:
+		# 	length = main_br.get_len()
+		# 	branch = Branch(main_br.get_rect(length-1).x, main_br.get_rect(length-1).y, color=GREEN, tam=8)
+		# 	branch.set_direction(Branch.RIGHT)
+		# 	tree.append(branch)
+
+		# if main_br.get_len() in [10, 20, 30, 40, 50]:
+		# 	length = main_br.get_len()
+		# 	branch = Branch(main_br.get_rect(length-1).x, main_br.get_rect(length-1).y, color=GREEN, tam=8)
+		# 	branch.set_direction(Branch.LEFT)
+		# 	tree.append(branch)
 
 		for br in tree:
 			br.draw_branch(screen)
