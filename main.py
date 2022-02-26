@@ -35,7 +35,7 @@ clock = pygame.time.Clock()
 bg = pygame.image.load("images/back.png")
 
 # Branch and Ground propertyes
-pixel_tam = 1
+pixel_tam = 20
 ground_thick = 20
 seed_posx = ORIGEN_X
 seed_posy = HEIGHT - (ground_thick)
@@ -51,7 +51,8 @@ def draw_ground():
 
 
 def main():
-	
+	initial_size = 8
+	time = 0
 	# Main loop
 	while True:
 		events = pygame.event.get()
@@ -65,20 +66,34 @@ def main():
 		screen.blit(bg,(0,0))	
 		draw_ground()
 
-		tam_br = 8
+
+		time += 0.1
+		tamanio = -0.2 * time**2 + initial_size
+
 		if main_br.get_len() > 5:
 			length = main_br.get_len()
 			# if length
-			branch = Branch(main_br.get_rect(length-1).x, main_br.get_rect(length-1).y, color=GREEN, tam=8)
+			branch = Branch(main_br.get_rect(length-1).x, main_br.get_rect(length-1).y, color=GREEN, tam=tamanio)
 			branch.set_direction(Branch.RIGHT)
 			tree.append(branch)	
 
-		if main_br.get_len() > 5:
 			length = main_br.get_len()
-			branch = Branch(main_br.get_rect(length-1).x, main_br.get_rect(length-1).y, color=GREEN, tam=8)
+			branch = Branch(main_br.get_rect(length-1).x, main_br.get_rect(length-1).y, color=GREEN, tam=tamanio)
 			branch.set_direction(Branch.LEFT)
 			tree.append(branch)	
 
+			length = main_br.get_len()
+			# if length
+			branch = Branch(main_br.get_rect(length-1).x, main_br.get_rect(length-1).y, color=GREEN, tam=tamanio)
+			branch.set_direction(Branch.RIGHT)
+			tree.append(branch)	
+
+			length = main_br.get_len()
+			branch = Branch(main_br.get_rect(length-1).x, main_br.get_rect(length-1).y, color=GREEN, tam=tamanio)
+			branch.set_direction(Branch.LEFT)
+			tree.append(branch)	
+
+		
 		# # Drawing branches and main 
 		# if main_br.get_len() in [5, 15, 25, 35, 45]:
 		# 	length = main_br.get_len()
